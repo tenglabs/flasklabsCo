@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+{% block content %}
+
+{% for order in orders %}
+<p>{{order.customer.username}}</p>
+
+{% endfor %}
+
+{% endblock content %}

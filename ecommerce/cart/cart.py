@@ -2,6 +2,7 @@ from flask import redirect, render_template, url_for, flash, request, session, c
 from ecommerce import db, app
 from ecommerce.models import Product
 from flask_login import current_user
+from ecommerce.models import CustomerOrder
 
 def MagerDicts(dict1, dict2):
     if isinstance(dict1, list) and isinstance(dict2,list):
@@ -56,3 +57,31 @@ def getcart():
 
 
     return render_template('cart/cart.html',tax=ploti_nologi, grandtotal=grandtotal,notax=subtotal)
+
+
+@app.route('/getorder')
+def get_order():
+    if current_user.is_authenticated:
+        customer_id = current_user.id
+        
+
+
+        
+        try:
+            order = CustomerOrder(customer=current_user,orders=session['Shoppingcart'])
+            db.session.add(order)
+            db.session.commit()
+            session.pop('Shoppingcart')
+            flash('Your order has been sent successfully','success')
+            return redirect('/')
+        except Exception as e:
+            print(e)
+            flash('Some thing went wrong while get order', 'danger')
+            return redirect(url_for('getcart'))
+
+@app.route('/order-list')
+def order_list():
+    
+    orders = CustomerOrder.query.all()
+    
+    return render_template('cart/orders.html',orders=orders)

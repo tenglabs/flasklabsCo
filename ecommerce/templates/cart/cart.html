@@ -10,8 +10,7 @@
     <th>Quantity</th>
     <th>Discount</th>
     <th>Total</th>
-    <th>Update</th>
-    <th>Delete</th>
+
 
     </thead>
 
@@ -27,8 +26,7 @@
     {% set subtotal = product.quantity|int * product.price|float  %}
 
     <td>{{"%0.2f"|format ((subtotal|float) - discount|float)}}</td>
-    <td>Update</td>
-    <td>Remove</td>
+
 </tr>
     {% endfor %}
     <tr>
