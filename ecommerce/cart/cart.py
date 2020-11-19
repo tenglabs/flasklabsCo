@@ -73,7 +73,7 @@ def get_order():
             db.session.commit()
             session.pop('Shoppingcart')
             flash('Your order has been sent successfully','success')
-            return redirect('/')
+            return redirect('order-list')
         except Exception as e:
             print(e)
             flash('Some thing went wrong while get order', 'danger')
@@ -82,6 +82,6 @@ def get_order():
 @app.route('/order-list')
 def order_list():
     
-    orders = CustomerOrder.query.all()
-    
-    return render_template('cart/orders.html',orders=orders)
+    order_list = CustomerOrder.query.all()
+
+    return render_template('cart/orders.html',order_list=order_list)
