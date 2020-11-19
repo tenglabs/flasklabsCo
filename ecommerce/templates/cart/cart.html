@@ -7,11 +7,12 @@
 <table class="containter">
     <table class="table table-sm"
     <thead>
-    <th>#</th>
+    <th>Cart</th>
     <th>Title</th>
     <th>Price</th>
     <th>Discount</th>
     <th>Total</th>
+
     <th>Update</th>
     <th>Delete</th>
 
@@ -19,14 +20,17 @@
 
     <tbody>
     {% for key,product in session['Shoppingcart'].items() %}
+    {% set discount ='%0.2f' |format((product.discount/100) * product.price|float) %}
     <tr>
     <td>{{ loop.index }}</td>
     <td>{{ product.title }}</td>
     <td> {{product.price}} </td>
-    <td></td>
-    <td></td>
-    <td></td>
-        <td></td>
+    <td> {{ product.discount }}% ({{ discount }})</td>
+    {% set subtotal = product.quantity|int * product.price|float  %}
+
+    <td>{{"%0.2f"|format ((subtotal|float) - discount|float)}}</td>
+    <td>Update</td>
+    <td>Remove</td>
 </tr>
     {% endfor %}
 </tbody>

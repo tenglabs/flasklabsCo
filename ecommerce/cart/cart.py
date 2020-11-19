@@ -18,7 +18,7 @@ def AddCart():
         quantity = request.form.get('quantity')
         product = Product.query.filter_by(id=product_id).first()
         if product_id and quantity and request.method =='POST':
-            DictItems = {product_id:{'title':product.title,'price':float(product.price),
+            DictItems = {product_id:{'title':product.title,'price':float(product.price),'quantity':quantity,
                                     'discount':product.discount, 'image':product.image}}
 
             if 'Shoppingcart' in session:
