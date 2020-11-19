@@ -43,4 +43,16 @@ def AddCart():
 def getcart():
     if 'Shoppingcart' not in session:
         return redirect(request.referrer)
-    return render_template('cart/cart.html')
+    subtotal = 0
+    grandtotal = 0
+    for key, product in session['Shoppingcart'].items():
+        discount = (product['discount']/100) * float(product['price'])
+        subtotal +=float(product['price']) * int(product['quantity'])
+        subtotal -= discount
+        subtotal = float("%.2f" % (subtotal))
+        ploti_nologi = ("%.2f" % (.06 * float(subtotal)))
+        
+        grandtotal = float("%.2f" % (1.06 * subtotal))
+
+
+    return render_template('cart/cart.html',tax=ploti_nologi, grandtotal=grandtotal,notax=subtotal)

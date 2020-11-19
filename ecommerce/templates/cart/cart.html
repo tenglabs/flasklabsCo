@@ -1,18 +1,15 @@
 {% extends "layout.html" %}
 {% block content %}
-{{session['Shoppingcart']}}
-
-
 
 <table class="containter">
     <table class="table table-sm"
     <thead>
-    <th>Cart</th>
+    <th>#</th>
     <th>Title</th>
     <th>Price</th>
+    <th>Quantity</th>
     <th>Discount</th>
     <th>Total</th>
-
     <th>Update</th>
     <th>Delete</th>
 
@@ -25,6 +22,7 @@
     <td>{{ loop.index }}</td>
     <td>{{ product.title }}</td>
     <td> {{product.price}} </td>
+    <td>{{ product.quantity }}</td>
     <td> {{ product.discount }}% ({{ discount }})</td>
     {% set subtotal = product.quantity|int * product.price|float  %}
 
@@ -33,6 +31,12 @@
     <td>Remove</td>
 </tr>
     {% endfor %}
+    <tr>
+        <td></td>
+        <td colspan="3"> <h3>TAX: {{ tax }} </h3></td>
+        <td colspan="4" > <h3>TOTAL PRICE INCLUDING TAXES: {{ grandtotal }} + ({{notax}}+{{tax}})  </h3></td>
+        
+    </tr>
 </tbody>
 </table>
 
